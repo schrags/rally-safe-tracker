@@ -36,14 +36,15 @@ function configRoutes () {
           component: Dashboard
         },
         {
-          path: 'map',
-          name: 'Map',
-          component: Map
+          path: 'events/:eventId/Entries',
+          name: 'entries',
+          component: Entries,
+          props: true
         },
         {
-          path: 'entries',
-          name: 'Entries',
-          component: Entries
+          path: 'events/:eventId/map',
+          name: 'map', component: Map,
+          props: true
         }
       ]
     },

@@ -13,7 +13,6 @@
     <CHeaderBrand class="mx-auto d-lg-none" to="/">
       <CIcon name="logo" height="48" alt="Logo"/>
     </CHeaderBrand>
-    <h2>Rallysafe</h2>
   </CHeader>
 </template>
 
