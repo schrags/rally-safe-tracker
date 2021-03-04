@@ -1,12 +1,53 @@
 <template>
   <div>
-    <h1>Entries here</h1>
+    <h2>Entries</h2>
+    <ejs-grid ref="grid" :dataSource="entries">
+          <e-columns>
+            <e-column field="DriverLastName" headerText="Driver" :valueAccessor="driverFormat" width="200"></e-column>
+            <e-column field="NavigatorLastName" headerText="Navigator" :valueAccessor="coDriverFormat" width="200"></e-column>
+            <e-column field="VehicleModel" headerText="Car" width="300"></e-column>
+          </e-columns>
+      </ejs-grid>   
   </div>
 </template>
 
 <script>
+
+import Vue from 'vue';
+import axios from 'axios';
+import { GridPlugin } from '@syncfusion/ej2-vue-grids';
+Vue.use(GridPlugin);
+
 export default {
-  name: 'Entries',
-  components: {  }
-}
+ name: "Entries",
+ data() {
+   return{
+     entries: []
+   }
+ },
+ computed: {
+},
+ methods: {
+   driverFormat: (field, data) => {
+     return data.DriverLastName + ", " + data.DriverFirstName;
+   },
+   coDriverFormat: (field, data) => {
+     return data.NavigatorLastName + ", " + data.NavigatorFirstName;
+   },
+   getEntries() {
+     axios.get("http://localhost:8082/events/" + this.$route.params.eventId + "/Entries").then(response => {
+       this.entries = response.data;
+    });
+   }
+ },
+ mounted() {
+   this.getEntries();
+   //console.log(this.$route.params.eventId);
+ }
+};
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+
+</style>
