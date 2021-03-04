@@ -51,6 +51,18 @@ app.get('/events/:eventId/vehicles', async function(req, res) {
     });
 });
 
+app.get('/events/:eventId/Results', async function(req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    axios.get("https://app.rallysafe.com.au/LiveData/StageTimes/?StageId=37581", {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => {
+        res.send(response.data);
+    });
+});
+
 app.listen(port, () => {
     console.log("Server Started");
 });

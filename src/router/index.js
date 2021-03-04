@@ -8,6 +8,7 @@ const TheContainer = () => import('@/containers/TheContainer')
 const Dashboard = () => import('@/views/Dashboard')
 const Map = () => import('@/views/Map')
 const Entries = () => import('@/views/Entries')
+const Results = () => import('@/views/Results')
 
 //Errors
 const Page404 = () => import('@/views/pages/Page404')
@@ -44,6 +45,11 @@ function configRoutes () {
         {
           path: 'events/:eventId/map',
           name: 'map', component: Map,
+          props: true
+        },
+        {
+          path: 'events/:eventId/results',
+          name: 'results', component: Results,
           props: true
         }
       ]

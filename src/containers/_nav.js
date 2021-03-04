@@ -19,6 +19,12 @@ export default [
         name: 'Map',
         to: '/map',
         icon: 'cil-map'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Results',
+        to: '/results',
+        icon: 'cil-clock'
       }
     ]
   }
