@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Entries</h2>
+    <h2>{{eventName}} Entries</h2>
     <ejs-grid ref="grid" :dataSource="entries">
           <e-columns>
             <e-column field="DriverLastName" headerText="Driver" :valueAccessor="driverFormat" width="200"></e-column>
@@ -26,7 +26,10 @@ export default {
    }
  },
  computed: {
-},
+   eventName() {
+     return this.$store.state.selectedEvent.Name;
+   }
+ },
  methods: {
    driverFormat: (field, data) => {
      return data.DriverLastName + ", " + data.DriverFirstName;
