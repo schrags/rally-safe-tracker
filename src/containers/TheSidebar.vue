@@ -11,14 +11,14 @@
         name="logo" 
         size="custom-size" 
         :height="35" 
-        viewBox="0 0 556 134"
+        viewBox="0 0 35 35"
       />
       <CIcon 
         class="c-sidebar-brand-minimized" 
         name="logo" 
         size="custom-size" 
         :height="35" 
-        viewBox="0 0 110 134"
+        viewBox="0 0 35 35"
       />
     </CSidebarBrand>
 
