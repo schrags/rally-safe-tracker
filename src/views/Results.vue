@@ -5,9 +5,9 @@
           <e-columns>
             <e-column field="carNumber" headerText="#" width="75"></e-column>
             <e-column field="driver"></e-column>
-            <e-column field="coDriver"></e-column>
-            <e-column field="carName"></e-column>
-            <e-column field="class" width="100"></e-column>
+            <e-column field="coDriver" hideAtMedia='(min-width: 700px)'></e-column>
+            <e-column field="carName" hideAtMedia='(min-width: 700px)'></e-column>
+            <e-column field="class" width="100" hideAtMedia='(min-width: 700px)'></e-column>
             <e-column field="stageTime"></e-column>
             <e-column field="averageSpeed"></e-column>
           </e-columns>
