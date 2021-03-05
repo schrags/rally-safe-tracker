@@ -38,7 +38,7 @@ export default {
      return data.NavigatorLastName + ", " + data.NavigatorFirstName;
    },
    getEntries() {
-     axios.get("http://localhost:8082/events/" + this.$route.params.eventId + "/Entries").then(response => {
+     axios.get("http://localhost:8082/api/v1/Events/" + this.$route.params.eventId + "/Entries").then(response => {
        this.entries = response.data;
     });
    }

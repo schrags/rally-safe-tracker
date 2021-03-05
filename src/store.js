@@ -35,7 +35,7 @@ const mutations = {
 
 const actions = {
   getEvents({commit}) {
-    axios.get("http://localhost:8082/events").then((response) => {
+    axios.get("http://localhost:8082/api/v2/Events/GetEventsForApp").then((response) => {
         response.data.unshift({
             Description: "<p>Sno*Drift</p>",
             EventId: 3224,

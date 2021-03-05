@@ -39,6 +39,7 @@
     "@coreui/vue-chartjs": "^1.0.6",
     "@syncfusion/ej2-vue-grids": "^18.4.46",
     "axios": "^0.21.1",
+    "http-proxy": "^1.18.1",
     "leaflet": "^1.7.1",
     "leaflet-rotatedmarker": "^0.2.0",
     "vue": "~2.6.12",

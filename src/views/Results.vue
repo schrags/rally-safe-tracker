@@ -42,7 +42,7 @@ export default {
      return data.NavigatorLastName + ", " + data.NavigatorFirstName;
    },
    getEntries() {
-     axios.get("http://localhost:8082/events/" + this.$route.params.eventId + "/Results").then(response => {
+     axios.get("http://localhost:8082/LiveData/StageTimes/?StageId=37581").then(response => {
        let rows = [];
        response.data.aaData.forEach(r => {
          let obj = {

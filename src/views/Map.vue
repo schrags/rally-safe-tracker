@@ -34,7 +34,7 @@ export default {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
    },
    getVehicles() {
-    axios.get("http://localhost:8082/events/" + this.eventId + "/vehicles").then(response => {
+    axios.get("http://localhost:8082/api/v1/Events/" + this.eventId + "/LiveVehicleData").then(response => {
         var greenIcon = L.icon({
             iconUrl: 'rallyicon.png',
             iconSize:     [50, 50], // size of the icon
@@ -56,7 +56,7 @@ export default {
       });
    },
    getStages() {
-      axios.get("http://localhost:8082/events/" + this.eventId + "/stages").then(response => {
+      axios.get("http://localhost:8082/api/v2/Events/" + this.eventId + "/polylines").then(response => {
         var extentPoints = [];
         response.data.forEach(stage => {
             var allPoints = [];
