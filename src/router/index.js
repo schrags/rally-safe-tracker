@@ -27,9 +27,19 @@ var router = new Router({
 router.beforeEach((to, from, next) => { 
   //make them select a rally
   var menuPages = ["/entries", "/map", "/results"];
+  var eventId = store.state.selectedEvent.EventId;
+
+  //meh i'll fix later
+  if (to.params.eventId && eventId < 0)
+  {
+    store.commit("selectedEvent", {
+      Name: "",
+      EventId: to.params.eventId
+    });
+  }
 
   if (menuPages.includes(to.path)) { 
-    var eventId = store.state.selectedEvent.EventId;
+    
       if (eventId < 0) { 
           next({ path: '/'});
       } else { 
