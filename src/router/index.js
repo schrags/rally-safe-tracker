@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store.js'
 
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
@@ -16,12 +17,30 @@ const Page500 = () => import('@/views/pages/Page500')
 
 Vue.use(Router)
 
-export default new Router({
+var router = new Router({
   mode: 'hash', // https://router.vuejs.org/api/#mode
   linkActiveClass: 'active',
   scrollBehavior: () => ({ y: 0 }),
   routes: configRoutes()
-})
+});
+
+router.beforeEach((to, from, next) => { 
+  //make them select a rally
+  var menuPages = ["/entries", "/map", "/results"];
+
+  if (menuPages.includes(to.path)) { 
+    var eventId = store.state.selectedEvent.EventId;
+      if (eventId < 0) { 
+          next({ path: '/'});
+      } else { 
+          next({path: '/Events/' + eventId + to.path});
+      } 
+  } else { 
+      next() 
+  } 
+}) 
+
+export default router
 
 function configRoutes () {
   return [
