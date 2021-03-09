@@ -24,13 +24,12 @@ export default {
    return{
      eventId: 0,
      map: null,
-     center: [45.0709376,-84.2576451]
-     //center: [37.7749, -122.4194]
+     center: [40.28, -99.23]
    }
  },
  methods: {
    setupLeafletMap: function () {
-    this.map = L.map("mapContainer").setView(this.center, 10);
+    this.map = L.map("mapContainer").setView(this.center, 4);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
    },
    getVehicles() {
@@ -66,7 +65,7 @@ export default {
             extentPoints.push(allPoints);
             L.polyline(allPoints).addTo(this.map); 
         });
-        this.map.fitBounds(L.latLngBounds(extentPoints));
+        this.map.flyToBounds(L.latLngBounds(extentPoints));
       });
    }
  },
