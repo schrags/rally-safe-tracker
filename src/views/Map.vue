@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import axios from 'axios';
@@ -24,7 +25,23 @@ export default {
    return{
      eventId: 0,
      map: null,
-     center: [40.28, -99.23]
+     center: [40.28, -99.23],
+     startIcon: new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      }),
+      finishIcon: new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      })
    }
  },
  methods: {
@@ -67,12 +84,26 @@ export default {
         });
         this.map.flyToBounds(L.latLngBounds(extentPoints));
       });
+   },
+    getStarts() {
+      axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/stagemaps").then(response => {
+        response.data[0].StagePoints.forEach(stage => {
+            if (stage.Code == "SS" || stage.Code == "SF")
+            {
+              var mark = L.marker([stage.Latitude, stage.Longitude], {
+                icon: stage.Code == "SS" ? this.startIcon : this.finishIcon
+              }).addTo(this.map);
+            }
+            
+        });
+      });
    }
  },
  mounted() {
     this.eventId = this.$route.params.eventId;
     this.setupLeafletMap();
     this.getStages();
+    this.getStarts();
     this.getVehicles();
    
  }

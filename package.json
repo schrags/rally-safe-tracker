@@ -44,6 +44,7 @@
     "http-proxy": "^1.18.1",
     "leaflet": "^1.7.1",
     "leaflet-rotatedmarker": "^0.2.0",
+    "leaflet-textpath": "^1.2.3",
     "vue": "~2.6.12",
     "vue-router": "^3.4.9",
     "vuex": "~3.6.0"
