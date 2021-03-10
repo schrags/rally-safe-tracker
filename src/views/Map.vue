@@ -71,39 +71,70 @@ export default {
         });
       });
    },
-   getStages() {
-      axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/polylines").then(response => {
+    getStages() {
+      axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v1/Events/" + this.eventId + "/stages").then(response => {
+        
+        //handle the stage polyline
         var extentPoints = [];
         response.data.forEach(stage => {
+            if (stage.PolyLine == null || stage.Name == "Shakedown")
+              return;
+
             var allPoints = [];
-            stage.PolyPoints.forEach(point => {
-              allPoints.push([point.Lat, point.Long]);
+            stage.PolyLine.PolyPoints.forEach(point => {
+              allPoints.push([point.Lat, point.Lng]);
             });
             extentPoints.push(allPoints);
             L.polyline(allPoints).addTo(this.map); 
+
+            //handle start finishes
+            stage.LocationPoints.forEach(point => {
+                if (point.LocationPointTypeCode == "SS" || point.LocationPointTypeCode == "SF")
+                {
+                  var mark = L.marker([point.Lat, point.Lng], {
+                    icon: point.LocationPointTypeCode == "SS" ? this.startIcon : this.finishIcon
+                  }).addTo(this.map).bindTooltip(stage.Name);
+                }
+                
+            });
         });
         this.map.flyToBounds(L.latLngBounds(extentPoints));
+
       });
    },
-    getStarts() {
-      axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/stagemaps").then(response => {
-        response.data[0].StagePoints.forEach(stage => {
-            if (stage.Code == "SS" || stage.Code == "SF")
-            {
-              var mark = L.marker([stage.Latitude, stage.Longitude], {
-                icon: stage.Code == "SS" ? this.startIcon : this.finishIcon
-              }).addTo(this.map);
-            }
+  //  getStages() {
+  //     axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/polylines").then(response => {
+  //       var extentPoints = [];
+  //       response.data.forEach(stage => {
+  //           var allPoints = [];
+  //           stage.PolyPoints.forEach(point => {
+  //             allPoints.push([point.Lat, point.Long]);
+  //           });
+  //           extentPoints.push(allPoints);
+  //           L.polyline(allPoints).addTo(this.map); 
+  //       });
+  //       this.map.flyToBounds(L.latLngBounds(extentPoints));
+  //     });
+  //  },
+  //   getStarts() {
+  //     axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/stagemaps").then(response => {
+  //       response.data[0].StagePoints.forEach(stage => {
+  //           if (stage.Code == "SS" || stage.Code == "SF")
+  //           {
+  //             var mark = L.marker([stage.Latitude, stage.Longitude], {
+  //               icon: stage.Code == "SS" ? this.startIcon : this.finishIcon
+  //             }).addTo(this.map);
+  //           }
             
-        });
-      });
-   }
+  //       });
+  //     });
+  //  }
  },
  mounted() {
     this.eventId = this.$route.params.eventId;
     this.setupLeafletMap();
     this.getStages();
-    this.getStarts();
+    // this.getStarts();
     this.getVehicles();
    
  }
