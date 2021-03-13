@@ -36,7 +36,7 @@ export default {
      return "<img class='eventImage' src='" + event[field] + "'/>";
    },
    titleColumn(field, event) {
-     return "<h3>" + event.Name + "</h3>" + event.Description;
+     return "<h3>" + event.Name + "</h3>";// + event.Description;
    },
    getEvents() {
      this.$store.dispatch("getEvents");
