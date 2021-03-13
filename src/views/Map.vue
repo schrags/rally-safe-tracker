@@ -61,9 +61,11 @@ export default {
         response.data.forEach(vehicle => {
           if (vehicle.Lat > 0)
           {
+
+            var customIcon = L.divIcon({iconSize:     [50, 50], html: vehicle.Identifier, className: 'mapCarIcon'});
             L.marker([vehicle.Lat, vehicle.Lng],
             {
-              icon: greenIcon,
+              icon: customIcon,
               rotationAngle: vehicle.Bearing - 90
             }).addTo(this.map);
           }
@@ -102,39 +104,11 @@ export default {
 
       });
    },
-  //  getStages() {
-  //     axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/polylines").then(response => {
-  //       var extentPoints = [];
-  //       response.data.forEach(stage => {
-  //           var allPoints = [];
-  //           stage.PolyPoints.forEach(point => {
-  //             allPoints.push([point.Lat, point.Long]);
-  //           });
-  //           extentPoints.push(allPoints);
-  //           L.polyline(allPoints).addTo(this.map); 
-  //       });
-  //       this.map.flyToBounds(L.latLngBounds(extentPoints));
-  //     });
-  //  },
-  //   getStarts() {
-  //     axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.eventId + "/stagemaps").then(response => {
-  //       response.data[0].StagePoints.forEach(stage => {
-  //           if (stage.Code == "SS" || stage.Code == "SF")
-  //           {
-  //             var mark = L.marker([stage.Latitude, stage.Longitude], {
-  //               icon: stage.Code == "SS" ? this.startIcon : this.finishIcon
-  //             }).addTo(this.map);
-  //           }
-            
-  //       });
-  //     });
-  //  }
  },
  mounted() {
     this.eventId = this.$route.params.eventId;
     this.setupLeafletMap();
     this.getStages();
-    // this.getStarts();
     this.getVehicles();
    
  }
@@ -161,4 +135,5 @@ a {
   width:100vw;
   height: 100vh;
 }
+
 </style>

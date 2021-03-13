@@ -50,7 +50,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
 /* can't use scoped for syncfusion dynamic crap */
 .eventsPage .eventImage {
   width: 100%;
