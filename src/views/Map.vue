@@ -1,7 +1,7 @@
 <template>
   <div>
+    <ejs-dropdownlist :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" width="200"></ejs-dropdownlist>
     <div id="mapContainer"></div>
-    <div id="vehicles"></div>
   </div>
 </template>
 
@@ -10,7 +10,6 @@ import Vue from 'vue';
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import axios from 'axios';
-
 import { Icon } from 'leaflet';
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -18,6 +17,8 @@ Icon.Default.mergeOptions({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
+import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
+Vue.use(DropDownListPlugin);
 
 export default {
  name: "Map",
@@ -25,7 +26,9 @@ export default {
    return{
      eventId: 0,
      map: null,
-     center: [40.28, -99.23],
+     selectedCar: -1,
+     cars: {},
+     carSelection: [{id: "-1", name: ""}],
      startIcon: new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -44,10 +47,30 @@ export default {
       })
    }
  },
+  watch: {
+   selectedCar: function() {
+     var car = this.cars[this.selectedCar];
+     if (car)
+     {
+       this.map.flyTo(car.marker.getLatLng(), 18);
+     }
+     this.selectedCar = "-1";
+   }
+ },
  methods: {
    setupLeafletMap: function () {
-    this.map = L.map("mapContainer").setView(this.center, 4);
+    this.map = L.map("mapContainer").fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+   },
+   popoulateFinder: function() {
+     for(var carId in this.cars)
+     {
+       var car = this.cars[carId];
+       this.carSelection.push({
+         id: car.info.Identifier,
+         name: car.info.Identifier
+       });
+     }
    },
    getVehicles() {
     axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v1/Events/" + this.eventId + "/LiveVehicleData").then(response => {
@@ -62,15 +85,24 @@ export default {
           if (vehicle.Lat > 0)
           {
 
-            var customIcon = L.divIcon({iconSize:     [50, 50], html: vehicle.Identifier, className: 'mapCarIcon'});
-            L.marker([vehicle.Lat, vehicle.Lng],
+            var customIcon = L.divIcon({iconSize: [50, 50], html: vehicle.Identifier, className: 'mapCarIcon'});
+            var carMarker = L.marker([vehicle.Lat, vehicle.Lng],
             {
               icon: customIcon,
               rotationAngle: vehicle.Bearing - 90
-            }).addTo(this.map);
+            });
+            carMarker.addTo(this.map);
+            this.cars[vehicle.Identifier] = {
+              info: vehicle,
+              marker: carMarker
+            };
+
           }
              
         });
+
+        this.popoulateFinder();
+
       });
    },
     getStages() {
@@ -132,8 +164,8 @@ a {
   color: #42b983;
 }
 #mapContainer {
-  width:100vw;
-  height: 100vh;
+  width: calc(100vw - 100px);
+  height: calc(100vh - 150px);
 }
 
 </style>
