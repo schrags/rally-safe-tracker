@@ -93,7 +93,7 @@ export default {
             var carMarker = L.marker([vehicle.Lat, vehicle.Lng],
             {
               icon: customIcon,
-              rotationAngle: vehicle.Bearing - 90
+              rotationAngle: vehicle.Bearing
             });
             carMarker.addTo(this.map);
             this.cars[vehicle.Identifier] = {
