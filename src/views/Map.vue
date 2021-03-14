@@ -1,6 +1,8 @@
 <template>
   <div>
-    <ejs-dropdownlist :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" width="200"></ejs-dropdownlist>
+    <div id="carSelector">
+      <ejs-dropdownlist :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" placeholder="Find Car" width="75"></ejs-dropdownlist>
+    </div>
     <div id="mapContainer"></div>
   </div>
 </template>
@@ -59,8 +61,10 @@ export default {
  },
  methods: {
    setupLeafletMap: function () {
-    this.map = L.map("mapContainer").fitWorld();
+    this.map = L.map("mapContainer", { zoomControl: false }).fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+
+    new L.Control.Zoom({ position: 'topright' }).addTo(this.map);
    },
    popoulateFinder: function() {
      for(var carId in this.cars)
@@ -163,8 +167,25 @@ li {
 a {
   color: #42b983;
 }
-#mapContainer {
-  height: calc(100vh - 150px);
+#carSelector {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 90px;
+  z-index: 999;
+  margin-right:50px;
 }
+#mapContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+</style>
 
+<style>
+.leaflet-control {
+  margin-top: 75px !important;
+}
 </style>
