@@ -164,7 +164,6 @@ a {
   color: #42b983;
 }
 #mapContainer {
-  width: calc(100vw - 100px);
   height: calc(100vh - 150px);
 }
 
