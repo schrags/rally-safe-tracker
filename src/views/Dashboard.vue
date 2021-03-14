@@ -2,7 +2,7 @@
   <div class="eventsPage">
     <ejs-grid :dataSource="events" :recordClick="eventSelected" allowTextWrap="true">
         <e-columns>
-          <e-column field="FeatureImageUrl" width="200" :disableHtmlEncode="false" :valueAccessor="imageColumn"></e-column>
+          <e-column field="FeatureImageUrl" width="165" :disableHtmlEncode="false" :valueAccessor="imageColumn"></e-column>
           <e-column field="Name" :disableHtmlEncode="false" :valueAccessor="titleColumn"></e-column>
         </e-columns>
     </ejs-grid>
