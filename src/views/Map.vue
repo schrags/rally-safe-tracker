@@ -95,6 +95,8 @@ export default {
               icon: customIcon,
               rotationAngle: vehicle.Bearing
             });
+            var minutes = Math.round(vehicle.SecondsSinceLastUpdate / 60);
+            carMarker.bindTooltip("Updated " + minutes + " minutes ago");
             carMarker.addTo(this.map);
             this.cars[vehicle.Identifier] = {
               info: vehicle,
