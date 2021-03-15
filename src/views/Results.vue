@@ -8,12 +8,11 @@
           <e-columns>
             <e-column field="id" headerText="" width="50"></e-column>
             <e-column field="carNumber" headerText="#" width="75"></e-column>
-            <e-column field="driver"></e-column>
-            <e-column field="coDriver" hideAtMedia='(min-width: 700px)'></e-column>
-            <e-column field="carName" hideAtMedia='(min-width: 700px)'></e-column>
-            <e-column field="class" width="100" hideAtMedia='(min-width: 700px)'></e-column>
-            <e-column field="stageTime"></e-column>
-            <e-column field="averageSpeed"></e-column>
+            <e-column field="driver" headerText="Drivers" :valueAccessor="driverFormat" :disableHtmlEncode="false"></e-column>]
+            <e-column field="carName" headerText="Car" hideAtMedia='(min-width: 700px)'></e-column>
+            <e-column field="class" headerText="Class" width="100" hideAtMedia='(min-width: 700px)'></e-column>
+            <e-column field="stageTime" headerText="Time"></e-column>
+            <e-column field="averageSpeed" headerText="Avg" width="75"></e-column>
           </e-columns>
       </ejs-grid>   
   </div>
@@ -50,10 +49,7 @@ export default {
  },
  methods: {
   driverFormat: (field, data) => {
-    return data.DriverLastName + ", " + data.DriverFirstName;
-  },
-  coDriverFormat: (field, data) => {
-    return data.NavigatorLastName + ", " + data.NavigatorFirstName;
+    return data.driver + "<br/>" + data.coDriver;
   },
   getStages() {
     axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v2/Events/" + this.$route.params.eventId + "/Stages").then(response => {
