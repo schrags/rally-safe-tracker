@@ -6,7 +6,7 @@
     </div>    
     <ejs-grid ref="grid" :dataSource="results">
           <e-columns>
-            <e-column field="id" headerText="" width="50"></e-column>
+            <e-column field="id" headerText="" width="65"></e-column>
             <e-column field="carNumber" headerText="#" width="75"></e-column>
             <e-column field="driver" headerText="Drivers" :valueAccessor="driverFormat" :disableHtmlEncode="false"></e-column>]
             <e-column field="carName" headerText="Car" hideAtMedia='(min-width: 700px)'></e-column>
