@@ -20,10 +20,12 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
+import MarkerDetails from "./MarkerDetails"
 Vue.use(DropDownListPlugin);
 
 export default {
  name: "Map",
+ compnents: {MarkerDetails},
  data() {
    return{
      refreshRate: 10000, //ms
@@ -74,20 +76,21 @@ methods: {
      {
        var car = this.cars[carId];
        this.carSelection.push({
-         id: car.info.Identifier,
-         name: car.info.Identifier
+         id: car.info.VehicleNumber,
+         name: car.info.VehicleNumber
        });
      }
   },
   updateVehicles() {
-    axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v1/Events/" + this.eventId + "/LiveVehicleData").then(response => {
+    axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=https://app.rallysafe.com.au/LiveData/Vehicles/" + this.eventId).then(response => {
       response.data.forEach(vehicle => {
-        var existing = this.cars[vehicle.Identifier];
+        var existing = this.cars[vehicle.VehicleNumber];
         if (existing)
         {
-          existing.marker.setTooltipContent(this.formatTooltip(existing));
+          existing.info = vehicle;
+          existing.marker.setTooltipContent(this.formatTooltip(vehicle));
           existing.marker.setLatLng([vehicle.Lat, vehicle.Lng]);
-          if (vehicle.Identifier == this.selectedCar)
+          if (vehicle.VehicleNumber == this.selectedCar)
           {
             this.map.flyTo(existing.marker.getLatLng());
           }
@@ -96,26 +99,32 @@ methods: {
     });
   },
   formatTooltip(vehicle) {
-    var minutes = Math.round(vehicle.SecondsSinceLastUpdate / 60);
-    return "Updated " + minutes + " minutes ago";
+    var MarkerDetailsComp = Vue.extend(MarkerDetails);
+    var comp = new MarkerDetailsComp({propsData: {
+      vehicle: vehicle
+    }});
+    comp.$mount();
+    var tooltipText = comp.$el.outerHTML;
+    return tooltipText;
   },
   addVehicle(vehicle) {
-    var customIcon = L.divIcon({iconSize: [50, 50], html: vehicle.Identifier, className: 'mapCarIcon'});
+    var html = vehicle.VehicleNumber;
+    var customIcon = L.divIcon({iconSize: [50, 50], html: html, className: 'mapCarIcon'});
     var carMarker = L.marker([vehicle.Lat, vehicle.Lng],
     {
       icon: customIcon,
       rotationAngle: vehicle.Bearing
     });
-    var minutes = Math.round(vehicle.SecondsSinceLastUpdate / 60);
+
     carMarker.bindTooltip(this.formatTooltip(vehicle));
     carMarker.addTo(this.map);
-    this.cars[vehicle.Identifier] = {
+    this.cars[vehicle.VehicleNumber] = {
       info: vehicle,
       marker: carMarker
     };
   },
   getVehicles() {
-    axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=http://api.rallysafe.com.au/api/v1/Events/" + this.eventId + "/LiveVehicleData").then(response => {
+    axios.get("http://spatialinnovations.art/rs/rsapi.php?csurl=https://app.rallysafe.com.au/LiveData/Vehicles/" + this.eventId).then(response => {
         response.data.forEach(vehicle => {
           if (vehicle.Lat > 0)
           {
