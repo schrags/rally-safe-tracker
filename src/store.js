@@ -39,7 +39,7 @@ const actions = {
         response.data.unshift({
             Description: "<p>Sno*Drift</p>",
             EventId: 3224,
-            FeatureImageUrl: "https://sas.blob.core.windows.net/cdn/EventFeatureImage/6508d6c4-b610-4c52-a77d-4e2853b06250.jpg",
+            FeatureImageUrl: "//static1.squarespace.com/static/5f90072f236ed961beea9ead/t/5f900b1b11b1b11dacf80c35/1613914930689/?format=1500w",
             Name: "Sno*Drift"
         });
         commit('updateEvents', response.data);

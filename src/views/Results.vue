@@ -8,10 +8,10 @@
           <e-columns>
             <e-column field="id" headerText="" width="65"></e-column>
             <e-column field="carNumber" headerText="#" width="75"></e-column>
-            <e-column field="driver" headerText="Drivers" :valueAccessor="driverFormat" :disableHtmlEncode="false"></e-column>]
+            <e-column field="driver" headerText="Drivers" width="150" :valueAccessor="driverFormat" :disableHtmlEncode="false"></e-column>]
             <e-column field="carName" headerText="Car" hideAtMedia='(min-width: 700px)'></e-column>
             <e-column field="class" headerText="Class" width="100" hideAtMedia='(min-width: 700px)'></e-column>
-            <e-column field="stageTime" headerText="Time"></e-column>
+            <e-column field="stageTime" headerText="Time" width="200"></e-column>
             <e-column field="averageSpeed" headerText="Avg" width="75"></e-column>
           </e-columns>
       </ejs-grid>   
