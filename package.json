@@ -46,6 +46,7 @@
     "leaflet-rotatedmarker": "^0.2.0",
     "leaflet-textpath": "^1.2.3",
     "vue": "~2.6.12",
+    "vue-analytics": "^5.22.1",
     "vue-router": "^3.4.9",
     "vuex": "~3.6.0"
   },
