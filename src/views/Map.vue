@@ -114,7 +114,7 @@ methods: {
     //rs api somes gives a bunch of duplicates?
     if (this.cars[vehicle.VehicleNumber])
       return;
-      
+
     var html = vehicle.VehicleNumber;
     var customIcon = L.divIcon({iconSize: [50, 50], html: html, className: 'mapCarIcon'});
     var carMarker = L.marker([vehicle.Lat, vehicle.Lng],
@@ -154,7 +154,7 @@ methods: {
         //handle the stage polyline
         var extentPoints = [];
         response.data.forEach(stage => {
-            if (stage.PolyLine == null || stage.Name == "Shakedown")
+            if (stage.PolyLine == null || stage.Name.includes("Shakedown"))
               return;
 
             var allPoints = [];
