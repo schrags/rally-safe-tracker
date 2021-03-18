@@ -14,7 +14,7 @@
       <CIcon name="logo" height="48" alt="Logo"/>
     </CHeaderBrand> -->
     <CHeaderBrand to="/">
-      <h3>Rallysafe Tracker</h3>
+      <h3>Rally Tracker</h3>
     </CHeaderBrand>
   </CHeader>
 </template>

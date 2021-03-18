@@ -47,6 +47,7 @@
     "leaflet-textpath": "^1.2.3",
     "vue": "~2.6.12",
     "vue-analytics": "^5.22.1",
+    "vue-gtag": "^1.11.0",
     "vue-router": "^3.4.9",
     "vuex": "~3.6.0"
   },
