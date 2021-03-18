@@ -117,7 +117,7 @@ methods: {
       rotationOrigin: "center"
     });
 
-    carMarker.bindPopup(this.formatTooltip(vehicle));
+    carMarker.bindTooltip(this.formatTooltip(vehicle));
     carMarker.addTo(this.map);
     this.cars[vehicle.VehicleNumber] = {
       info: vehicle,
