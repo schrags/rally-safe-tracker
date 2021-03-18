@@ -113,7 +113,8 @@ methods: {
     var carMarker = L.marker([vehicle.Lat, vehicle.Lng],
     {
       icon: customIcon,
-      rotationAngle: vehicle.Bearing
+      rotationAngle: vehicle.Bearing,
+      rotationOrigin: "center"
     });
 
     carMarker.bindTooltip(this.formatTooltip(vehicle));
@@ -136,7 +137,7 @@ methods: {
 
         //set up refresh
         this.vehicleRefreshInterval = setInterval(() => {
-          this.updateVehicles();
+          //this.updateVehicles();
         }, this.refreshRate);
       });
    },
