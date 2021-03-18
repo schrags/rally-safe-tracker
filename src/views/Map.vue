@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="carSelector">
-      <ejs-dropdownlist :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" placeholder="Car" popupWidth="200" width="75"></ejs-dropdownlist>
+      <ejs-dropdownlist :open='onOpen' :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" placeholder="Car" popupWidth="200" width="75"></ejs-dropdownlist>
     </div>
     <div id="mapContainer"></div>
   </div>
@@ -65,6 +65,9 @@ destroyed: function() {
   clearInterval(this.vehicleRefreshInterval);
 },
 methods: {
+  onOpen: function(args) {
+      args.popup.element.style.top = "55px";
+  },
   setupLeafletMap: function () {
     this.map = L.map("mapContainer", { zoomControl: false }).fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
