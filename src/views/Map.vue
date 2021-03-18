@@ -140,7 +140,7 @@ methods: {
 
         //set up refresh
         this.vehicleRefreshInterval = setInterval(() => {
-          //this.updateVehicles();
+          this.updateVehicles();
         }, this.refreshRate);
       });
    },
