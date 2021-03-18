@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="carSelector">
-      <ejs-dropdownlist :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" placeholder="Car" width="75"></ejs-dropdownlist>
+      <ejs-dropdownlist :dataSource='carSelection' v-model="selectedCar" :fields="{ text: 'name', value: 'id' }" placeholder="Car" popupWidth="200" width="75"></ejs-dropdownlist>
     </div>
     <div id="mapContainer"></div>
   </div>
@@ -77,7 +77,7 @@ methods: {
        var car = this.cars[carId];
        this.carSelection.push({
          id: car.info.VehicleNumber,
-         name: car.info.VehicleNumber
+         name: car.info.VehicleNumber + ": " + car.info.Drv
        });
      }
   },
