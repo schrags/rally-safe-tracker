@@ -43,11 +43,11 @@ export default {
  methods: {
    eventSelected(evt) {
      var event = evt.rowData;
-     if (event.EventId !== 3224)
-     {
-       alert("Not enabled yet");
-       return;
-     }
+    //  if (event.EventId !== 3224)
+    //  {
+    //    alert("Not enabled yet");
+    //    return;
+    //  }
      this.$store.commit("selectedEvent", event);
      this.$router.push({name: "entries", params: {eventId: event.EventId}});
    },
