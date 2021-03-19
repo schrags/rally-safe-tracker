@@ -3,6 +3,10 @@
     <h2>{{eventName}} Results</h2>
     <div class="d-flex justify-content-center">
       <ejs-dropdownlist ref="stageDropdown" v-model="selectedStage" :dataSource='stages' :fields="stageFields" width="200"></ejs-dropdownlist>
+      <div style="padding: 8px">
+        <button v-on:click="refresh">Refresh</button>
+      </div>
+      
     </div>    
     <ejs-grid ref="grid" :dataSource="results">
           <e-columns>
@@ -48,6 +52,9 @@ export default {
    }
  },
  methods: {
+  refresh() {
+    this.getEntries();
+  },
   driverFormat: (field, data) => {
     return data.driver + "<br/>" + data.coDriver;
   },
