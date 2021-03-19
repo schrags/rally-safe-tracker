@@ -28,7 +28,7 @@ export default {
  compnents: {MarkerDetails},
  data() {
    return{
-     refreshRate: 20000, //ms
+     refreshRate: 10000, //ms
      eventId: 0,
      map: null,
      selectedCar: -1,
