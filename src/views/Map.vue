@@ -75,6 +75,17 @@ methods: {
       maxNativeZoom: 19
     }).addTo(this.map);
 
+
+    var nexrad = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+        layers: 'nexrad-n0r-900913',
+        format: 'image/png',
+        transparent: true,
+        attribution: "Weather data © 2012 IEM Nexrad"
+    }).addTo(this.map);
+
+    L.control.layers({}, {"Radar": nexrad}).addTo(this.map);
+
+
     new L.Control.Zoom({ position: 'topright' }).addTo(this.map);
    },
    popoulateFinder: function() {
@@ -216,7 +227,7 @@ a {
   right: 0;
   margin-top: 90px;
   z-index: 999;
-  margin-right:50px;
+  margin-right:70px;
 }
 #mapContainer {
   position: absolute;
@@ -228,7 +239,10 @@ a {
 </style>
 
 <style>
-.leaflet-control {
+/* .leaflet-control {
   margin-top: 75px !important;
+} */
+.leaflet-control-layers {
+  margin-top:75px !important;
 }
 </style>
