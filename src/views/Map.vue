@@ -69,8 +69,11 @@ methods: {
       args.popup.element.style.top = "55px";
   },
   setupLeafletMap: function () {
-    this.map = L.map("mapContainer", { zoomControl: false }).fitWorld();
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+    this.map = L.map("mapContainer", {zoomControl: false}).fitWorld();
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      maxZoom: 22,
+      maxNativeZoom: 19
+    }).addTo(this.map);
 
     new L.Control.Zoom({ position: 'topright' }).addTo(this.map);
    },
@@ -154,7 +157,7 @@ methods: {
         //handle the stage polyline
         var extentPoints = [];
         response.data.forEach(stage => {
-            if (stage.PolyLine == null || stage.Name.includes("Shakedown"))
+            if (stage.PolyLine == null)// || stage.Name.includes("Shakedown"))
               return;
 
             var allPoints = [];
