@@ -96,6 +96,7 @@ methods: {
           existing.info = vehicle;
           existing.marker.setTooltipContent(this.formatTooltip(vehicle));
           existing.marker.setLatLng([vehicle.Lat, vehicle.Lng]);
+          existing.marker.setRotationAngle(vehicle.Bearing);
           if (vehicle.VehicleNumber == this.selectedCar)
           {
             this.map.flyTo(existing.marker.getLatLng());
@@ -157,7 +158,7 @@ methods: {
         //handle the stage polyline
         var extentPoints = [];
         response.data.forEach(stage => {
-            if (stage.PolyLine == null)// || stage.Name.includes("Shakedown"))
+            if (stage.PolyLine == null)//y || stage.Name.includes("Shakedown"))
               return;
 
             var allPoints = [];
