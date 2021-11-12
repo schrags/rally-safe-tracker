@@ -1,24 +1,11 @@
-# rally-safe
+# Rally Tracker
 
-## Project setup
-```
-npm install
-```
+Rally tracker utilizing VueJS and the rallysafe API.  I wanted to see how quickly I could get a functioning version of a web based tracking app to track rally cars racing in the American Rally Association and view results without having to download an app from the app store.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![Desktop map overview](img/dekstopoverview.png)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![Desktop start of stage](img/dekstopstart.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
+![Cell phone map overview](img/mobileoverview.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![Stage results](img/mobileresults.png)
